@@ -1,0 +1,94 @@
+/* Main Background */
+.stApp {
+    background-color: #FDF6F8;
+    /* Light Pink Pastel */
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background-color: #FFF0F5;
+    border-right: 2px solid #F8C8DC;
+}
+
+/* Titles */
+h1 {
+    color: #FF69B4 !important;
+    /* Hot Pink */
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important;
+    text-align: center;
+}
+
+h2,
+h3 {
+    color: #DB7093 !important;
+    /* Pale Violet Red */
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #FFB6C1 !important;
+    /* Light Pink */
+    color: white !important;
+    border-radius: 20px !important;
+    border: 2px solid #FF69B4 !important;
+    font-weight: bold !important;
+    padding: 10px 20px !important;
+    transition: all 0.3s ease !important;
+}
+
+.stButton>button:hover {
+    background-color: #FF69B4 !important;
+    transform: scale(1.05);
+}
+
+/* Input Fields */
+.stTextInput>div>div>input {
+    border-radius: 15px !important;
+    border: 2px solid #FFB6C1 !important;
+    padding: 10px !important;
+}
+
+/* Dataframe/Table */
+[data-testid="stDataFrame"] {
+    border: 2px solid #FFB6C1;
+    border-radius: 10px;
+    background-color: white;
+}
+
+/* Cards (Custom Markdown) */
+.word-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 3px dashed #FFB6C1;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.japanese-text {
+    font-size: 60px;
+    font-weight: bold;
+    color: #333;
+}
+
+.reading-text {
+    font-size: 24px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.success-msg {
+    color: #32CD32;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.error-msg {
+    color: #FF4500;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}

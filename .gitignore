@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.DS_Store
+build/
+dist/
+*.spec
+.vscode/
+data/user_progress.json # Don't commit personal progress
