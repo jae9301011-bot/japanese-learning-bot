@@ -134,10 +134,8 @@ def main():
                 with col1:
                     submitted = st.form_submit_button("Check Answer", use_container_width=True, on_click=check_answer, args=(selected_level,))
                 with col2:
-                    next_clicked = st.form_submit_button("Next Word ➡️", use_container_width=True)
-                    if next_clicked:
-                        fetch_random_word(selected_level, retry_mode)
-                        st.rerun()
+                    # Next button clears state and fetches new via callback
+                    st.form_submit_button("Next Word ➡️", use_container_width=True, on_click=fetch_random_word, args=(selected_level, retry_mode))
 
             # Feedback Display
             if st.session_state.feedback == "correct":
