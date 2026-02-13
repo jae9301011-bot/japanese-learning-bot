@@ -79,14 +79,22 @@ async def generate_audio_edge(text):
 def play_audio(text):
     try:
         with st.spinner("Generating High-Quality Audio..."):
-            # Run async function in sync Streamlit app
-            audio_bytes = asyncio.run(generate_audio_edge(text))
+            # Handle Asyncio Loop for Streamlit
+            try:
+                loop = asyncio.get_event_loop()
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+            
+            # Generate audio data
+            audio_bytes = loop.run_until_complete(generate_audio_edge(text))
             
             if len(audio_bytes) == 0:
                 st.error("TTS Error: No audio data generated.")
                 return
 
-        st.audio(audio_bytes, format='audio/mp3', autoplay=True)
+        # Play Audio (MIME type 'audio/mpeg' is safer for iOS)
+        st.audio(audio_bytes, format='audio/mpeg', autoplay=False) # Autoplay off for wider mobile support
         
     except Exception as e:
         st.error(f"TTS Error: {e}")
