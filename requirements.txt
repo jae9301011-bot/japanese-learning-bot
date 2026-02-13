@@ -1,2 +1,4 @@
 requests
-pyinstaller
+pandas
+streamlit
+gTTS
