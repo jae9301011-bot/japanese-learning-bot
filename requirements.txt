@@ -1,4 +1,4 @@
 requests
 pandas
 streamlit>=1.50.0
-gTTS
+edge-tts

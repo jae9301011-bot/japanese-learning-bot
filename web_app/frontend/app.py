@@ -65,28 +65,31 @@ def check_answer(level):
     update_progress_logic(level, word_data["word"], status)
 
 import io
-from gtts import gTTS
+import asyncio
+import edge_tts
+
+async def generate_audio_edge(text):
+    communicate = edge_tts.Communicate(text, "ja-JP-NanamiNeural")
+    audio_data = b""
+    async for chunk in communicate.stream():
+        if chunk["type"] == "audio":
+            audio_data += chunk["data"]
+    return audio_data
 
 def play_audio(text):
     try:
-        # Generate Audio with gTTS
-        with st.spinner("Generating audio..."):
-            tts = gTTS(text=text, lang='ja')
-            audio_fp = io.BytesIO()
-            tts.write_to_fp(audio_fp)
-            audio_fp.seek(0)
+        with st.spinner("Generating High-Quality Audio..."):
+            # Run async function in sync Streamlit app
+            audio_bytes = asyncio.run(generate_audio_edge(text))
             
-            # Check if data was actually written
-            if audio_fp.getbuffer().nbytes == 0:
+            if len(audio_bytes) == 0:
                 st.error("TTS Error: No audio data generated.")
                 return
 
-        # Play Audio
-        st.audio(audio_fp, format='audio/mp3', autoplay=True)
+        st.audio(audio_bytes, format='audio/mp3', autoplay=True)
         
     except Exception as e:
         st.error(f"TTS Error: {e}")
-        # Detailed log for debugging
         print(f"TTS Failed: {e}")
 
 def main():
