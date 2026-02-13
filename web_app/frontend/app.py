@@ -64,11 +64,21 @@ def check_answer(level):
     # Update Progress
     update_progress_logic(level, word_data["word"], status)
 
+import io
+from gtts import gTTS
+
 def play_audio(text):
-    # Streamlit Cloud doesn't support 'say' command (macOS only).
-    # We can try to use st.audio if we had a file, or ignore it.
-    # For now, we'll just print a message or use a placeholder.
-    st.toast(f"Pronunciation: {text} (TTS not supported in Cloud Mode)")
+    try:
+        # Generate Audio with gTTS
+        tts = gTTS(text=text, lang='ja')
+        audio_fp = io.BytesIO()
+        tts.write_to_fp(audio_fp)
+        audio_fp.seek(0)
+        
+        # Play Audio
+        st.audio(audio_fp, format='audio/mp3', autoplay=True)
+    except Exception as e:
+        st.error(f"TTS Error: {e}")
 
 def main():
     st.set_page_config(page_title="Cute Japanese Learning", page_icon="🌸", layout="centered")
