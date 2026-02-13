@@ -70,15 +70,24 @@ from gtts import gTTS
 def play_audio(text):
     try:
         # Generate Audio with gTTS
-        tts = gTTS(text=text, lang='ja')
-        audio_fp = io.BytesIO()
-        tts.write_to_fp(audio_fp)
-        audio_fp.seek(0)
-        
+        with st.spinner("Generating audio..."):
+            tts = gTTS(text=text, lang='ja')
+            audio_fp = io.BytesIO()
+            tts.write_to_fp(audio_fp)
+            audio_fp.seek(0)
+            
+            # Check if data was actually written
+            if audio_fp.getbuffer().nbytes == 0:
+                st.error("TTS Error: No audio data generated.")
+                return
+
         # Play Audio
         st.audio(audio_fp, format='audio/mp3', autoplay=True)
+        
     except Exception as e:
         st.error(f"TTS Error: {e}")
+        # Detailed log for debugging
+        print(f"TTS Failed: {e}")
 
 def main():
     st.set_page_config(page_title="Cute Japanese Learning", page_icon="🌸", layout="centered")
